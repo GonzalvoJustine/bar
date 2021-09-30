@@ -1,14 +1,14 @@
 <nav class="nav">
     <span class="title-site">The simple Bar/beers</span>
-    <a class="nav-link active" aria-current="page" href="{{ path('beer_index')}}">Home</a>
+    <a class="nav-link active" aria-current="page" href="{{ path('beer')}}">Home</a>
     <a class="nav-link" href="#">Blonde</a>
     <a class="nav-link" href="#">Brune</a>
     <a class="nav-link" href="#">Rousse</a>
     <a class="nav-link" href="#">Statistic</a>
     {% if app.user %}
-        <a class="nav-link" href="{{ path('app_logout')}}">Logout</a>
+        <a class="nav-link" href="#">Logout</a>
         <span>Utilisateur</span>
     {% else %}
-        <a class="nav-link" href="{{ path('app_login')}}">Se connecter</a>
+        <a class="nav-link" href="#">Se connecter</a>
     {% endif %}
 </nav>

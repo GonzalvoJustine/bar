@@ -1,0 +1,29 @@
+// customize some Bootstrap variables
+$primary: white;
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: $primary;
+    a {
+        color: black;
+    }
+}
+
+nav {
+    background-color: #235781;
+    align-items: center;
+    a.nav-link {
+        background-color: white;
+        margin: 1rem;
+        color: #235781;
+        text-decoration: underline;
+    }
+    span {
+        &.title-site {
+            color: white;
+            font-size: 1.5rem;
+        }
+    }
+}
