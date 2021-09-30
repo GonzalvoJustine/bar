@@ -15,17 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BeerController extends AbstractController
 {
     /**
-     * @Route("/", name="beer", methods={"GET"})
-     */
-    public function index(BeerRepository $beerRepository): Response
-    {
-        return $this->render('beer/index.html.twig', [
-            'beers' => $beerRepository->findAll(),
-            'title' => "PAge d'accueil"
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="beer_show", methods={"GET"})
      */
     public function show(Beer $beer): Response

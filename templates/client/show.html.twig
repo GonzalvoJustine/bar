@@ -11,9 +11,13 @@
                 <p>Email : {{ client.email }}</p>
             {% endif %}
             {% if client.weight is defined  %}
-                <p>Âge : {{ client.weight }} &euro;</p>
+                <p>Âge : {{ client.weight }} ans</p>
             {% endif %}
-            <p>{{ client.number_beer ?? 'pas de nombre de bière' }}</p>
+            {% if client.numberBeer is not null  %}
+                <p>Nombre de bière : {{ client.numberBeer }}</p>
+            {% else %}
+                <p>Pas de nombre de bière</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
