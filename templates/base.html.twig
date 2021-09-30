@@ -14,8 +14,12 @@
         {% endblock %}
     </head>
     <body>
-    {% include 'partials/navigation.html.twig' %}
-
+    {{render(controller('App\\Controller\\HomeController:mainMenu',
+        {
+            'routeName' : app.request.attributes.get('_route'),
+            'catId': app.request.attributes.get('id') ?? null
+        }
+    ))}}
     <div class="container">
         <div class="row">
             <div class="col-md-4">

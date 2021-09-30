@@ -19,32 +19,15 @@ class BeerRepository extends ServiceEntityRepository
         parent::__construct($registry, Beer::class);
     }
 
-    // /**
-    //  * @return Beer[] Returns an array of Beer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCatTerm(string $term, int $beerId)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+                    ->select('c.name, c.id')
+                    ->join('b.categories', 'c')
+                    ->andWhere('c.term=:term AND b.id=:beerId')
+                    ->setParameter('term', $term)
+                    ->setParameter('beerId', $beerId)
+                    ->getQuery()
+                    ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Beer
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

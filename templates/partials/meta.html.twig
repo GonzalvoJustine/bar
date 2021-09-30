@@ -1,13 +1,10 @@
 {# Affichez les pays cliquables #}
 {% if beer.country %}
-    <ul>
-        <li>
-            Country :
-            <a href="{{ path('show_country_beer', { id : beer.country.id })}}">
-                {{beer.country.name}}
-            </a>
-        </li>
-    </ul>
+    <p>Country :
+        <a href="{{ path('show_country_beer', { id : beer.country.id })}}">
+            {{beer.country.name}}
+        </a>
+    </p>
 {% endif %}
 {#
 {% set normals = normal(beer) %}
