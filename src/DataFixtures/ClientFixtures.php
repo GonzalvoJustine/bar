@@ -25,6 +25,7 @@ class ClientFixtures extends Fixture implements OrderedFixtureInterface
                     ->setWeight($faker->randomNumber(2))
                     ->setName($faker->firstname)
                     ->setNumberBeer(rand(0, 15))
+                    ->setAge(rand(18, 90))
             ;
 
             $count--;

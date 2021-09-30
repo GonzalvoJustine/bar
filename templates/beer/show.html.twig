@@ -19,5 +19,8 @@
         <div class="card-body">
             {% include 'partials/meta.html.twig' %}
         </div>
+        {% if is_granted('ROLE_USER') %}
+            {{ form(form) }}
+        {% endif %}
     </div>
 {% endblock %}

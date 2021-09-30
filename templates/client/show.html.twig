@@ -10,14 +10,23 @@
             {% if client.email is defined %}
                 <p>Email : {{ client.email }}</p>
             {% endif %}
+            {% if client.age is defined  %}
+                <p>Age : {{ client.age }} ans</p>
+            {% endif %}
             {% if client.weight is defined  %}
-                <p>Âge : {{ client.weight }} ans</p>
+                <p>Poids : {{ client.weight }} kg</p>
             {% endif %}
             {% if client.numberBeer is not null  %}
                 <p>Nombre de bière : {{ client.numberBeer }}</p>
             {% else %}
                 <p>Pas de nombre de bière</p>
             {% endif %}
+
+            {% for statistic in client.statistics %}
+{#                {{ dump(statistic) }}#}
+                <h2>{{ statistic.beer.name }}</h2>
+                <p>{{ statistic.score }}</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

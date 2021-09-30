@@ -25,12 +25,24 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
 
         $count = $_ENV["APP_FIXTURES_NB_USER"] ?? 1;
 
+
+        $adminUser = new User();
+        $adminUser
+            ->setEmail('b@b.b')
+            ->setPassword($this->passwordHasher->hashPassword(
+                $adminUser,
+                'bbbbbb'
+            ))
+            ->setRoles(['ROLE_USER'])
+            ;
+        $manager->persist($adminUser);
+
         while($count > 0){
             $user = new User();
-            $user   ->setEmail('bubu@contact.fr')
+            $user   ->setEmail('a@a.a')
                     ->setPassword($this->passwordHasher->hashPassword(
                         $user,
-                        'bubu123456'
+                        'aaaaaa'
                     ))
                     ->setRoles(['ROLE_ADMIN']);
 
