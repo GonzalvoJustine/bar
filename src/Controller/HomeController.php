@@ -9,16 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function index(): Response
-    {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
-
     public function mainMenu(string $routeName, int $catId = null): Response
     {
         $categories = $this->getDoctrine()->getRepository(Category::class)->findBy(['term' => 'normal']);
