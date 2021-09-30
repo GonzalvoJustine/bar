@@ -17,8 +17,11 @@
                             {% if client.email is defined %}
                                 <p>Email : {{ client.email }}</p>
                             {% endif %}
+                            {% if client.age is defined  %}
+                                <p>Age : {{ client.age }} ans</p>
+                            {% endif %}
                             {% if client.weight is defined  %}
-                                <p>Âge : {{ client.weight }} &euro;</p>
+                                <p>Poids : {{ client.weight }} kg</p>
                             {% endif %}
                             {% if client.numberBeer is not null  %}
                                 <p>Nombre de bière : {{ client.numberBeer }}</p>
