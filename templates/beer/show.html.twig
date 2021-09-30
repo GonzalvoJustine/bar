@@ -19,8 +19,6 @@
         <div class="card-body">
             {% include 'partials/meta.html.twig' %}
         </div>
-        {% if is_granted('ROLE_USER') %}
-            {{ form(form) }}
-        {% endif %}
+        <a href="{{ path('statistic') }}">Ajouter un score</a>
     </div>
 {% endblock %}
