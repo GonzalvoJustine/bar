@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Beer{% endblock %}
+
+{% block body %}
+
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h1>{{ beer.name }}</h1>
+            {% if beer.publishedAt is defined %}
+                <p>Date de création : {{ beer.publishedAt | date('d-m-Y h:m:s')}}</p>
+            {% endif %}
+            {% if beer.price is defined  %}
+                <p>Price : {{ beer.price }} &euro;</p>
+            {% endif %}
+            <p>{{ beer.description ?? 'no description' }}</p>
+        </div>
+        <img src="{{ asset('build/images/beer.jpg') }}" width="auto" height="auto" alt="beer"/>
+        <div class="card-body">
+            {% include 'partials/meta.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
