@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    // On ne peut pas modifier une constante et elles sont liées à la classe et pas à l'objet
+    const SPECIAL = "special";
+    const NORMAL = "normal";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -34,9 +38,15 @@ class Category
      */
     private $beers;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $term;
+
     public function __construct()
     {
         $this->beers = new ArrayCollection();
+        $this->setTerm(self::NORMAL);
     }
 
     public function getId(): ?int
@@ -94,4 +104,25 @@ class Category
 
         return $this;
     }
+
+    public function getTerm(): ?string
+    {
+        return $this->term;
+    }
+
+    public function setTerm(?string $term): self
+    {
+        // Sécurité des termes
+        if(!in_array($term, [self::NORMAL, self::SPECIAL])) {
+            // On lance une exception ce qui provoque l'arrêt des scripts
+
+            // throw new \Exception(); // Trop vague, il faut être plus précis dans nos exceptions
+            throw new \InvalidArgumentException('Invalid term');
+        }
+
+        $this->term = $term;
+
+        return $this;
+    }
+
 }

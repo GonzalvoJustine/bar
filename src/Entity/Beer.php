@@ -25,16 +25,6 @@ class Beer
     private $name;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
-     */
-    private $decimal;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="beers")
-     */
-    private $country;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -45,9 +35,19 @@ class Beer
     private $published_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="beers")
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="beer")
      */
-    private $category;
+    private $categories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="beers")
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $price;
 
     /**
      * @ORM\OneToMany(targetEntity=Statistic::class, mappedBy="beer")
@@ -56,7 +56,8 @@ class Beer
 
     public function __construct()
     {
-        $this->category = new ArrayCollection();
+        $this->country = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->statistics = new ArrayCollection();
     }
 
@@ -73,30 +74,6 @@ class Beer
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDecimal(): ?string
-    {
-        return $this->decimal;
-    }
-
-    public function setDecimal(?string $decimal): self
-    {
-        $this->decimal = $decimal;
-
-        return $this;
-    }
-
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
@@ -118,7 +95,7 @@ class Beer
         return $this->published_at;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $published_at): self
+    public function setPublishedAt(\DateTimeInterface $published_at): self
     {
         $this->published_at = $published_at;
 
@@ -128,15 +105,16 @@ class Beer
     /**
      * @return Collection|Category[]
      */
-    public function getCategory(): Collection
+    public function getCategories(): Collection
     {
-        return $this->category;
+        return $this->categories;
     }
 
     public function addCategory(Category $category): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addBeer($this);
         }
 
         return $this;
@@ -144,7 +122,33 @@ class Beer
 
     public function removeCategory(Category $category): self
     {
-        $this->category->removeElement($category);
+        if ($this->categories->removeElement($category)) {
+            $category->removeBeer($this);
+        }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
@@ -178,4 +182,5 @@ class Beer
 
         return $this;
     }
+
 }
