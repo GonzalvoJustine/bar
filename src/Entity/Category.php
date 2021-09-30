@@ -34,19 +34,19 @@ class Category
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Beer::class, mappedBy="category")
-     */
-    private $beers;
-
-    /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $term;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Beer::class, mappedBy="categories")
+     */
+    private $beers;
+
     public function __construct()
     {
-        $this->beers = new ArrayCollection();
         $this->setTerm(self::NORMAL);
+        $this->beers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +78,26 @@ class Category
         return $this;
     }
 
+    public function getTerm(): ?string
+    {
+        return $this->term;
+    }
+
+    public function setTerm(?string $term): self
+    {
+        // Sécurité des termes
+        if(!in_array($term, [self::NORMAL, self::SPECIAL])) {
+            // On lance une exception ce qui provoque l'arrêt des scripts
+
+            // throw new \Exception(); // Trop vague, il faut être plus précis dans nos exceptions
+            throw new \InvalidArgumentException('Invalid term');
+        }
+
+        $this->term = $term;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Beer[]
      */
@@ -101,26 +121,6 @@ class Category
         if ($this->beers->removeElement($beer)) {
             $beer->removeCategory($this);
         }
-
-        return $this;
-    }
-
-    public function getTerm(): ?string
-    {
-        return $this->term;
-    }
-
-    public function setTerm(?string $term): self
-    {
-        // Sécurité des termes
-        if(!in_array($term, [self::NORMAL, self::SPECIAL])) {
-            // On lance une exception ce qui provoque l'arrêt des scripts
-
-            // throw new \Exception(); // Trop vague, il faut être plus précis dans nos exceptions
-            throw new \InvalidArgumentException('Invalid term');
-        }
-
-        $this->term = $term;
 
         return $this;
     }

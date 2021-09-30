@@ -32,7 +32,8 @@ class BeerFixtures extends Fixture implements OrderedFixtureInterface
                     ->setPublishedAt($faker->dateTime())
                     ->setDescription($faker->text(rand(200, 500)))
                     ->setCountry($countries[0])
-                    ->setPrice($faker->randomNumber(2));
+                    ->setPrice($faker->randomNumber(2))
+                    ->addCategory($catNormals[0]);
 
             $count--;
             $manager->persist($beer);

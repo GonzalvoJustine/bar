@@ -35,11 +35,6 @@ class Beer
     private $published_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="beer")
-     */
-    private $categories;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="beers")
      */
     private $country;
@@ -54,11 +49,16 @@ class Beer
      */
     private $statistics;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="beers")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->country = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->statistics = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,33 +98,6 @@ class Beer
     public function setPublishedAt(\DateTimeInterface $published_at): self
     {
         $this->published_at = $published_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addBeer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeBeer($this);
-        }
 
         return $this;
     }
@@ -179,6 +152,30 @@ class Beer
                 $statistic->setBeer(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }
