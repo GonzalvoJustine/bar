@@ -10,6 +10,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class Custom extends AbstractExtension
 {
+    private $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
 
     public function getFilters()
     {

@@ -26,6 +26,7 @@ class BeerFixtures extends Fixture implements OrderedFixtureInterface
         while($count > 0){
             shuffle($countries);
             shuffle($catNormals);
+            shuffle($catSpecials);
 
             $beer = new Beer();
             $beer   ->setName($faker->word)
@@ -33,7 +34,8 @@ class BeerFixtures extends Fixture implements OrderedFixtureInterface
                     ->setDescription($faker->text(rand(200, 500)))
                     ->setCountry($countries[0])
                     ->setPrice($faker->randomNumber(2))
-                    ->addCategory($catNormals[0]);
+                    ->addCategory($catNormals[0])
+                    ->addCategory($catSpecials[0]);
 
             $count--;
             $manager->persist($beer);
